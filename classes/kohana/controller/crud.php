@@ -57,7 +57,7 @@ abstract class Kohana_Controller_Crud extends Controller
 		$element = ORM::Factory($this->_orm_model);
 		
 		$form = Formo::form()->orm('load',$element);
-		$form->add('save', 'submit', 'Utwórz');
+		$form->add('save', 'submit', 'Create');
 		
 		if($form->load($_POST)->validate())
 		{
@@ -80,7 +80,7 @@ abstract class Kohana_Controller_Crud extends Controller
 		$element = ORM::Factory($this->_orm_model, $_GET['id']);
 		
 		$form = Formo::form()->orm('load',$element);
-		$form->add('update', 'submit', 'Zapisz');
+		$form->add('update', 'submit', 'Save');
 		
 		if($form->load($_POST)->validate())
 		{
