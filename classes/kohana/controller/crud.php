@@ -65,14 +65,14 @@ abstract class Kohana_Controller_Crud extends Controller
 		
 		if($form->load($_POST)->validate())
 		{
-			$this->_create_passed($form);
+			$this->_create_passed($form, $element);
 
 			$element->save();
 			$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
 		}
 		else
 		{
-			$this->_create_failed($form);
+			$this->_create_failed($form, $element);
 		}
 
 		$this->response->body(self::View('crud/'.$this->_template.'/create')
@@ -94,13 +94,13 @@ abstract class Kohana_Controller_Crud extends Controller
 		
 		if($form->load($_POST)->validate())
 		{
-			$this->_update_passed($form);
+			$this->_update_passed($form, $element);
 			$element->save();
 			$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
 		}
 		else
 		{
-			$this->_update_failed($form);
+			$this->_update_failed($form, $element);
 		}
 
 		$this->response->body(self::View('crud/'.$this->_template.'/update')
@@ -143,7 +143,7 @@ abstract class Kohana_Controller_Crud extends Controller
 	 * @param Formo_Form $form Formo_Form object
 	 * @return mixed
 	 */
-	public protected function _create_passed(Formo_Form $form)
+	protected function _create_passed(Formo_Form $form, ORM $element)
 	{
 		// You will probably want to extend this method
 		return true;
@@ -156,7 +156,7 @@ abstract class Kohana_Controller_Crud extends Controller
 	 * @param Formo_Form $form Formo_Form object
 	 * @return mixed
 	 */
-	public protected function _create_failed(Formo_Form $form)
+	protected function _create_failed(Formo_Form $form, ORM $element)
 	{
 		// You will probably want to extend this method
 		return true;
@@ -169,7 +169,7 @@ abstract class Kohana_Controller_Crud extends Controller
 	 * @param Formo_Form $form Formo_Form object
 	 * @return mixed
 	 */
-	public protected function _update_passed(Formo_Form $form)
+	protected function _update_passed(Formo_Form $form, ORM $element)
 	{
 		// You will probably want to extend this method
 		return true;
@@ -182,7 +182,7 @@ abstract class Kohana_Controller_Crud extends Controller
 	 * @param Formo_Form $form Formo_Form object
 	 * @return mixed
 	 */
-	public protected function _update_failed(Formo_Form $form)
+	protected function _update_failed(Formo_Form $form, ORM $element)
 	{
 		// You will probably want to extend this method
 		return true;
