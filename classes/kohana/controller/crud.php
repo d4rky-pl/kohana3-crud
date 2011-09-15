@@ -35,6 +35,10 @@ abstract class Kohana_Controller_Crud extends Controller
 
 	/*
 	 * CRUD controller: READ
+	 *
+	 * If you are already using Pagination module, consider using my
+	 * Pagination helper to keep it simple (I didn't want to make Pagination required)
+	 * @see http://nerdblog.pl/2011/09/01/kohana-3-pagination-helper-using-jelly/
 	 */
 	public function action_index()
 	{
