@@ -62,7 +62,6 @@ abstract class Kohana_Controller_Crud extends Controller
 		
 		$form = Formo::form()->orm('load',$element);
 		$form->add('save', 'submit', 'Create');
-		$form->description->set('val', array('a', 'b', 'c'));
 		
 		if($form->load($_POST)->validate())
 		{
