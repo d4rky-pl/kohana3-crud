@@ -3,6 +3,7 @@
 		%tr
 			- foreach($fields as $field)
 				%th= I18n::get($field)
+			%th= I18n::get('Actions')
 	
 	%tbody
 		- foreach($elements as $element)

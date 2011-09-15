@@ -4,6 +4,7 @@
 			<?php foreach($fields as $field): ?>
 				<th><?php echo I18n::get($field) ?></th>
 			<?php endforeach; ?>
+			<th><?php echo I18n::get('Actions') ?></th>
 		</tr>
 	</thead>
 	<tbody>
