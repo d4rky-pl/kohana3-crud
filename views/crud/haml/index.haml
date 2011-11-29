@@ -11,7 +11,7 @@
 				- foreach($fields as $field)
 					%td= html::chars($element->$field)
 				%td
-					%a(href = "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'update')).'?id='.$element->id}")= I18n::get('Edit')
-					%a(href = "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'delete')).'?id='.$element->id}")= I18n::get('Delete')
+					%a{:href => "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'update')).'?id='.$element->id}"}= I18n::get('Edit')
+					%a{:href => "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'delete')).'?id='.$element->id}"}= I18n::get('Delete')
 
-%a(href = "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'create'))}")= I18n::get("Create")
+%a{:href = "#{Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'create'))}"}= I18n::get("Create")
