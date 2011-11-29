@@ -66,8 +66,9 @@ abstract class Kohana_Controller_Crud extends Controller
 		if($form->load($_POST)->validate())
 		{
 			$this->_create_passed($form, $element);
-
 			$element->save();
+			$form->orm('save_rel', $element);
+
 			$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
 		}
 		else
@@ -96,6 +97,8 @@ abstract class Kohana_Controller_Crud extends Controller
 		{
 			$this->_update_passed($form, $element);
 			$element->save();
+			$form->orm('save_rel', $element);
+
 			$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
 		}
 		else
