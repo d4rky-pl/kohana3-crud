@@ -14,10 +14,10 @@
 					<td><?php echo html::chars($element->$field) ?></td>
 				<?php endforeach; ?>
 				<td>
-					<a href="<?php echo Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'update')).'?id='.$element->id ?>">
+					<a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update')).'?id='.$element->id ?>">
 						<?php echo I18n::get('Edit') ?>
 					</a>
-					<a href="<?php echo Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'delete')).'?id='.$element->id ?>">
+					<a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'delete')).'?id='.$element->id ?>">
 						<?php echo I18n::get('Delete') ?>
 					</a>
 				</td>
@@ -26,6 +26,6 @@
 	</tbody>
 </table>
 
-<a href="<?php echo Route::url($route, array('controller'=> Inflector::plural($name), 'action'=>'create')) ?>">
+<a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
 	<?php echo I18n::get("Create") ?>
 </a>

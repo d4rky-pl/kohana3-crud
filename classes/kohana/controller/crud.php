@@ -70,7 +70,7 @@ abstract class Kohana_Controller_Crud extends Controller
 				$element->save();
 				$form->orm('save_rel', $element);
 
-				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
+				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
 			}
 		}
 		else
@@ -102,7 +102,7 @@ abstract class Kohana_Controller_Crud extends Controller
 				$element->save();
 				$form->orm('save_rel', $element);
 
-				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
+				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
 			}
 		}
 		else
@@ -128,7 +128,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			if($_POST['id'] == $element->id)
 			{
 				$element->delete();
-				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Inflector::plural($this->_orm_model))));
+				$this->request->redirect(Route::get($this->_route_name)->uri(array('controller'=> Request::current()->controller())));
 			}
 		}
 
