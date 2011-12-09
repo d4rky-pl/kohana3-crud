@@ -2,9 +2,9 @@
 	<thead>
 		<tr>
 			<?php foreach($fields as $field): ?>
-				<th><?php echo I18n::get($field) ?></th>
+				<th><?php echo __($field) ?></th>
 			<?php endforeach; ?>
-			<th><?php echo I18n::get('Actions') ?></th>
+			<th><?php echo __('Actions') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,10 +15,10 @@
 				<?php endforeach; ?>
 				<td>
 					<a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update')).'?id='.$element->id ?>">
-						<?php echo I18n::get('Edit') ?>
+						<?php echo __('Edit') ?>
 					</a>
 					<a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'delete')).'?id='.$element->id ?>">
-						<?php echo I18n::get('Delete') ?>
+						<?php echo __('Delete') ?>
 					</a>
 				</td>
 			</tr>
@@ -27,5 +27,5 @@
 </table>
 
 <a href="<?php echo Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create')) ?>">
-	<?php echo I18n::get("Create") ?>
+	<?php echo __("Create") ?>
 </a>

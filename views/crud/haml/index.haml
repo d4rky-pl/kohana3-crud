@@ -2,8 +2,8 @@
 	%thead
 		%tr
 			- foreach($fields as $field)
-				%th= I18n::get($field)
-			%th= I18n::get('Actions')
+				%th= __($field)
+			%th= __('Actions')
 	
 	%tbody
 		- foreach($elements as $element)
@@ -11,7 +11,7 @@
 				- foreach($fields as $field)
 					%td= html::chars($element->$field)
 				%td
-					%a{:href => "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update')).'?id='.$element->id}"}= I18n::get('Edit')
-					%a{:href => "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'delete')).'?id='.$element->id}"}= I18n::get('Delete')
+					%a{:href => "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'update')).'?id='.$element->id}"}= __('Edit')
+					%a{:href => "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'delete')).'?id='.$element->id}"}= __('Delete')
 
-%a{:href = "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create'))}"}= I18n::get("Create")
+%a{:href = "#{Route::url($route, array('controller'=> Request::current()->controller(), 'action'=>'create'))}"}= __("Create")

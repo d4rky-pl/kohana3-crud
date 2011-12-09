@@ -1,7 +1,7 @@
-%p= I18n::get("Are you sure you want to delete :element with ID :id ?", array(':element' => $name, ':id' =>$element->id))
+%p= __("Are you sure you want to delete :element with ID :id ?", array(':element' => $name, ':id' =>$element->id))
 
 %form{:method => "post"}
 	%p
 		%input{:type => "hidden", :name => "id", :value => "#{$element->id}"}
-		%button{:type => "submit"}= I18n::get("Yes")
-		%a{:href => "#{Route::url($route, array('controller' => Request::current()->controller()))}"}= I18n::get("No")
+		%button{:type => "submit"}= __("Yes")
+		%a{:href => "#{Route::url($route, array('controller' => Request::current()->controller()))}"}= __("No")
