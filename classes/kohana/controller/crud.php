@@ -195,9 +195,32 @@ abstract class Kohana_Controller_Crud extends Controller
 		return true;
 	}
 
+	/*
+	 * This method checks whetever it is possible to use custom 
+	 * template instead of generic one (per-action view overloading, neat, huh?)
+	 *
+	 * It also allows to choose another templating system as long
+	 * as it's a drop-in replacement for View class (Mustache won't work
+	 * that easily :<)
+	 *
+	 * @param string $filename View filename (without path, view name only!)
+	 * @param mixed $data View data
+	 * @return View
+	 */
 	protected static function View($filename = null, $data = null)
 	{
-		return new self::$_template_driver($filename, $data);
+		$r = Request::current();
+		$custom = ($r->directory() ? $r->directory().'/' : '') . $r->controller() . '/' . $r->action();
+		$default = 'crud/'.self::$_template.'/'.$filename;
+
+		try
+		{
+			return new self::$_template_driver($custom, $data);
+		}
+		catch(Exception $e) // Yeah, this should be Kohana_View_Exception but custom view classes
+		{
+			return new self::$_template_driver($default, $data);
+		}
 	}
 
 }
