@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<?php foreach($fields as $field): ?>
-				<th><?php echo __($field) ?></th>
+				<th><?php echo (method_exists($orm = ORM::Factory($name), 'formo') ? Arr::path($orm->formo(), $field.'.label', __($field)) : __($field)); ?></th>
 			<?php endforeach; ?>
 			<th><?php echo __('Actions') ?></th>
 		</tr>
