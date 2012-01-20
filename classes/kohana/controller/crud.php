@@ -26,7 +26,7 @@ abstract class Kohana_Controller_Crud extends Controller
 	/*
 	 * @var $_template Template to use (default: html)
 	 */
-	protected $_template = 'html';
+	protected static $_template = 'html';
 
 	/*
 	 * @var $_template_driver Template driver to use (default: View)
@@ -45,7 +45,7 @@ abstract class Kohana_Controller_Crud extends Controller
 		$elements = ORM::Factory($this->_orm_model)
 		               ->find_all();
 
-		$this->response->body(self::View('crud/'.$this->_template.'/index')
+		$this->response->body(self::View('index')
 		     ->set(array('name' => $this->_orm_model,
 		                  'elements' => $elements,
 		                  'fields' => $this->_index_fields,
@@ -78,7 +78,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			$this->_create_failed($form, $element);
 		}
 
-		$this->response->body(self::View('crud/'.$this->_template.'/create')
+		$this->response->body(self::View('create')
 		     ->set(array('name' => $this->_orm_model,
 		                 'form' => $form,
 		                 'route' => $this->_route_name))
@@ -110,7 +110,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			$this->_update_failed($form, $element);
 		}
 
-		$this->response->body(self::View('crud/'.$this->_template.'/update')
+		$this->response->body(self::View('update')
 		     ->set(array('name' => $this->_orm_model,
 		                  'form' => $form,
 		                  'route' => $this->_route_name))
@@ -132,7 +132,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			}
 		}
 
-		$this->response->body(self::View('crud/'.$this->_template.'/delete')
+		$this->response->body(self::View('delete')
 		     ->set(array('name' => $this->_orm_model,
 		                  'element' => $element,
 		                  'route' => $this->_route_name))
