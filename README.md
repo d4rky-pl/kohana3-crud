@@ -38,7 +38,7 @@ And basic model would be:
     	{
     		return array
     		(
-    			'id' => array(
+    			'id' => array
     			(
     				'render' => false
     			),
