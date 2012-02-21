@@ -3,14 +3,14 @@
  * CRUD controller usable as a base for administration panel
  * @author Michał Matyas <michal@matyas.pl>
  */
-abstract class Kohana_Controller_Crud extends Controller
+abstract class Epic_Core_Admin_Scaffolder extends Controller
 {
 
 	/*
 	 * @var $_index_fields ORM fields shown in index
 	 */	 
 	protected $_index_fields = array(
-
+		'id'
 	);
 
 	/*
@@ -24,16 +24,6 @@ abstract class Kohana_Controller_Crud extends Controller
 	protected $_route_name = 'crud';
 
 	/*
-	 * @var $_template Template to use (default: html)
-	 */
-	protected static $_template = 'html';
-
-	/*
-	 * @var $_template_driver Template driver to use (default: View)
-	 */
-	protected static $_template_driver = 'View';
-
-	/*
 	 * CRUD controller: READ
 	 *
 	 * If you are already using Pagination module, consider using my
@@ -45,12 +35,7 @@ abstract class Kohana_Controller_Crud extends Controller
 		$elements = ORM::Factory($this->_orm_model)
 		               ->find_all();
 
-		$this->response->body(self::View('index')
-		     ->set(array('name' => $this->_orm_model,
-		                  'elements' => $elements,
-		                  'fields' => $this->_index_fields,
-		                  'route' => $this->_route_name))
-		);
+		return $this->render('index', array('elements' => $elements));
 	}
 	
 	/*
@@ -78,11 +63,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			$this->_create_failed($form, $element);
 		}
 
-		$this->response->body(self::View('create')
-		     ->set(array('name' => $this->_orm_model,
-		                 'form' => $form,
-		                 'route' => $this->_route_name))
-		);
+		return $this->render('create', array('form' => $form));
 	}
 	
 	/*
@@ -110,11 +91,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			$this->_update_failed($form, $element);
 		}
 
-		$this->response->body(self::View('update')
-		     ->set(array('name' => $this->_orm_model,
-		                  'form' => $form,
-		                  'route' => $this->_route_name))
-		);
+		return $this->render('update', array('form' => $form));
 	}
 	/*
 	 * CRUD controller: DELETE
@@ -132,11 +109,7 @@ abstract class Kohana_Controller_Crud extends Controller
 			}
 		}
 
-		$this->response->body(self::View('delete')
-		     ->set(array('name' => $this->_orm_model,
-		                  'element' => $element,
-		                  'route' => $this->_route_name))
-		);
+		return $this->render('delete', array('element' => $element));
 	}
 
 	/*
@@ -196,31 +169,34 @@ abstract class Kohana_Controller_Crud extends Controller
 	}
 
 	/*
-	 * This method checks whetever it is possible to use custom 
-	 * template instead of generic one (per-action view overloading, neat, huh?)
+	 * This method is a wrapper for templating system.
 	 *
-	 * It also allows to choose another templating system as long
-	 * as it's a drop-in replacement for View class (Mustache won't work
-	 * that easily :<)
+	 * This allows use of eiter View, Haml, Mustache or any other templating
+	 * system you'd like to use.
+	 * It defaults to the basic View though.
 	 *
-	 * @param string $filename View filename (without path, view name only!)
+	 * @param string $view View name
 	 * @param mixed $data View data
 	 * @return View
 	 */
-	protected static function View($filename = null, $data = null)
+	protected function render($view = null, $data = null)
 	{
 		$r = Request::current();
 		$custom = ($r->directory() ? $r->directory().'/' : '') . $r->controller() . '/' . $r->action();
-		$default = 'crud/'.self::$_template.'/'.$filename;
+		$default = 'crud/'.$view;
+
+		$data = array('fields' => $this->_index_fields, 'name' => $this->_orm_model, 'route' => $this->_route_name) + $data;
 
 		try
 		{
-			return new self::$_template_driver($custom, $data);
+			$view = new View($custom, $data);
 		}
-		catch(Exception $e) // Yeah, this should be Kohana_View_Exception but custom view classes
+		catch(Kohana_View_Exception $e)
 		{
-			return new self::$_template_driver($default, $data);
+			$view = new View($default, $data);
 		}
+
+		$this->response->body($view);
 	}
 
 }
