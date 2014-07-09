@@ -1,3 +1,9 @@
+**THIS PROJECT IS NO LONGER MAINTAINED AS I HAVE SWITCHED TO RUBY ON RAILS.**
+
+**OH, AND PLEASE STOP SENDING ME PHP JOB OFFERS, I'M NOT INTERESTED IN COMING BACK.**
+
+---
+
 Kohana 3.2 CRUD using Formo and ORM
 -----------------------------------
 As I couldn't find any usable CRUD, I've decided to create my own. It's based on [Formo](https://github.com/bmidget/kohana-formo) and Kohana's ORM.
